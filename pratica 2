@@ -1,0 +1,37 @@
+sudo dnf install httpd vsftpd openssh-server -y
+
+sudo systemctl enable --now httpd
+sudo systemctl enable --now vsftpd
+sudo systemctl enable --now sshd
+
+sudo systemctl status httpd
+sudo systemctl status vsftpd
+sudo systemctl status sshd
+
+sudo iptables -A INPUT -p tcp --dport 80 -j DROP
+sudo iptables -A INPUT -p tcp --dport 21 -j DROP
+sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+
+sudo iptables -L -n --line-numbers
+
+sudo iptables -D INPUT -p tcp --dport 80 -j DROP
+sudo iptables -D INPUT -p tcp --dport 21 -j DROP
+sudo iptables -D INPUT -p tcp --dport 22 -j DROP
+
+sudo iptables -L -n
+
+sudo firewall-cmd --permanent --zone=public --remove-port=80/tcp
+sudo firewall-cmd --permanent --zone=public --remove-port=21/tcp
+sudo firewall-cmd --permanent --zone=public --remove-port=22/tcp
+
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --list-ports
+
+sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
+sudo firewall-cmd --permanent --zone=public --add-port=21/tcp
+sudo firewall-cmd --permanent --zone=public --add-port=22/tcp
+
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --list-ports
