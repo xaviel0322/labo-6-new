@@ -1,0 +1,29 @@
+pratica 1 
+
+sudo yum install -y gnupg2
+
+mkdir cifrado 
+
+cd cifrado 
+
+touch mensaje.txt 
+
+# dentro del archivo ponemos un mensaje 
+
+# ahora ciframos el contenido 
+
+gpg2 -c mensaje.txt 
+
+ls
+
+cat mensaje.txt.gpg
+
+# ahora deciframos el archivo 
+
+gpg2 mensaje.txt.gpg   # y le damos que yes
+
+cat mensaje.txt.gpg
+
+ls 
+
+cat mensaje.txt
